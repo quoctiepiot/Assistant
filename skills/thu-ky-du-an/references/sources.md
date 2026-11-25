@@ -41,3 +41,16 @@ Tìm thêm (không bắt buộc, dùng khi review tuần hoặc khi người dù
 ### WBS_ project management
 - `WBS`: phần đầu có Project / Target / Milestone; bảng: id | name | owner | duration (day) | preds | Loại (Nhóm/Việc) | Đầu ra | Xong khi | Trạng thái (`Xong` / `Chưa làm`).
 - Phần dưới bảng (Thực hành tuần 1-12, Đo lường & cải tiến...) là kế hoạch phụ của dự án "Cải thiện chất lượng suy nghĩ", chưa có id/trạng thái.
+
+## Nguồn tiến độ từ các repo khác
+
+Thông tin thuộc repo nào thì lưu ở repo đó; repo Assistant chỉ **đọc** để tổng hợp, không ghi vào.
+Người dùng báo tiến độ trong chat → ghi vào file tiến độ của repo tương ứng, không sửa kanban trên Drive.
+Khi người dùng kêu "summary" → gom các mục `[chưa đồng bộ]` thành danh sách ô cần sửa trên kanban.
+
+| Repo | File tiến độ | Phạm vi |
+|---|---|---|
+| `quoctiepiot/npd-engineering` | `memory/progress/tasks.md` | Việc Engineering: ECN/ECO, FAI, release drawing, QB test… |
+
+Định dạng (hợp đồng dữ liệu): mỗi task một mục `## <Project> › <Task>` khớp tên trên kanban; dòng
+"Kanban hiện tại"; log mới nhất ở trên, mỗi dòng có ngày và cờ `[chưa đồng bộ]` / `[đã đồng bộ YYYY-MM-DD]`.
