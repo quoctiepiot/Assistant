@@ -242,7 +242,7 @@ def parse_record(rows, hi, kanban_fields_by_sheet):
             continue
         snaps.append({"date": d, "project": clean(rec.get("project")), "task": task,
                       "status": clean(rec.get("status")), "waiting": clean(rec.get("waiting")),
-                      "note": clean(rec.get("note"))})
+                      "note": clean(rec.get("note")), "deadline": clean(rec.get("deadline"))})
     return snaps
 
 
@@ -336,8 +336,10 @@ def parse_plan(rows):
         if r and norm(r[0]) == "project":
             break
         if any(c not in (None, "") for c in r[2:]):
+            cells = [clean(c) for c in r[2:] if c not in (None, "")]
             items.append({"project": clean(r[0]), "task": clean(r[1]),
-                          "plan": " | ".join(clean(c) for c in r[2:] if c not in (None, ""))})
+                          "plan": " | ".join(c for c in cells if norm(c) != "done"),
+                          "done": any(norm(c) == "done" for c in cells)})
     return {"last_plan_label": " / ".join(labels), "items": items[:25]}
 
 
@@ -402,6 +404,22 @@ def analyse_history(tasks, snaps, today, window):
             t["unchanged_since"] = since.isoformat()
         t["first_seen"] = days[0].isoformat()
     return changes, (last_snapshot.isoformat() if last_snapshot else "")
+
+
+def snapshot_metrics(snaps, target):
+    """Chỉ số tại bản chụp gần nhất <= target (để so xu hướng mà không cần lưu gì)."""
+    days = sorted({s["date"] for s in snaps if s["date"] <= target})
+    if not days:
+        return None
+    d = days[-1]
+    rows = {}
+    for s in snaps:
+        if s["date"] == d:
+            rows[(norm(s["project"]), norm(s["task"]))] = s
+    open_rows = [s for s in rows.values() if status_kind(s["status"]) not in ("done", "cancelled")]
+    with_dl = sum(1 for s in open_rows if parse_date(s.get("deadline"))[0])
+    active = sum(1 for s in open_rows if status_kind(s["status"]) == "doing" and not norm(s["waiting"]))
+    return {"date": d.isoformat(), "open": len(open_rows), "with_deadline": with_dl, "doing_active": active}
 
 
 def flag_tasks(tasks, today, soon, stale):
@@ -518,6 +536,11 @@ def main():
             snaps += parse_record(rows, i, kanban_fields)
         changes, last_snap = analyse_history(kanban_tasks, snaps, today, a.window)
         info["last_snapshot"] = last_snap
+        if snaps:
+            last = dt.date.fromisoformat(last_snap)
+            info["trend"] = {"latest": snapshot_metrics(snaps, last),
+                             "7_days_ago": snapshot_metrics(snaps, last - dt.timedelta(days=7)),
+                             "30_days_ago": snapshot_metrics(snaps, last - dt.timedelta(days=30))}
         out["recent_changes"] += [dict(c, source=src) for c in changes]
         out["tasks"] += kanban_tasks
         out["sources"].append(info)
@@ -541,6 +564,30 @@ def main():
     summary["data_errors"] = sum(1 for t in out["tasks"] if any(f.startswith("data_error") for f in t["flags"]))
     summary["wip_limit"] = a.wip
     summary["wip_over"] = {s: v["doing_active"] for s, v in summary["by_source"].items() if v["doing_active"] > a.wip}
+    # Việc sót: có trong kế hoạch ngày gần nhất, chưa done, không có trên kanban
+    known = {norm(t["task"]) for t in out["tasks"]}
+    omissions = []
+    for p in out["plans"]:
+        for it in p.get("items", []):
+            if it.get("done"):
+                continue
+            if it["task"] and norm(it["task"]) in known:
+                continue
+            omissions.append({"source": p["source"], "plan_date": p["last_plan_label"],
+                              "project": it["project"], "task": it["task"], "plan": it["plan"]})
+    out["omissions"] = omissions
+    # Chỉ số thành công (instruction v2, mục 2)
+    metrics = {"deadline_coverage": {}, "doing_active_total": sum(v["doing_active"] for v in summary["by_source"].values()),
+               "wip_limit": a.wip,
+               "stale_14_open": sum(1 for t in open_tasks if t.get("days_unchanged", 0) >= 14),
+               "omissions": len(omissions),
+               "wbs_feasibility": [{"project": w["project"], "remaining_days": w["remaining_duration_days"],
+                                    "workdays_left": w.get("workdays_to_milestone"),
+                                    "feasible": not w.get("schedule_risk", False)} for w in out["wbs"]]}
+    for src in summary["by_source"]:
+        rows = [t for t in open_tasks if t["source"] == src and t["task"] != "(trống tên việc)"]
+        metrics["deadline_coverage"][src] = f'{sum(1 for t in rows if t.get("deadline"))}/{len(rows)}'
+    summary["metrics"] = metrics
     out["summary"] = summary
     # bỏ task đã xong khỏi output cho gọn (giữ số đếm)
     out["done_count"] = len(out["tasks"]) - len(open_tasks)

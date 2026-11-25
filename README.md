@@ -13,7 +13,8 @@ Trợ lí AI cá nhân giúp quản lý công việc và kế hoạch, theo dõi
 
 - `SKILL.md`: quy trình, nguyên tắc ưu tiên, mẫu báo cáo (6 chế độ: nhắc hằng ngày, giờ làm gì, hỏi dự án, review tuần, báo tiến độ, việc mới).
 - `references/sources.md`: danh sách file Drive (ID, cấu trúc sheet).
-- `scripts/scan.py`: đọc file .xlsx/.csv, chuẩn hóa task, gắn cờ quá hạn / nằm im / chờ người khác / lỗi dữ liệu, so bản chụp RECORD DATA.
+- `references/huan-luyen.md`: giai đoạn kèm cặp hiện tại (GĐ1–3), điều kiện chuyển giai đoạn, kho bài học tuần. Bạn tự sửa file này khi chuyển giai đoạn.
+- `scripts/scan.py`: đọc file .xlsx/.csv, chuẩn hóa task, gắn cờ quá hạn / nằm im / chờ người khác / lỗi dữ liệu, tìm việc bị sót, tính chỉ số thành công và xu hướng so với 7 và 30 ngày trước từ RECORD DATA.
 
 Chạy thử script:
 
