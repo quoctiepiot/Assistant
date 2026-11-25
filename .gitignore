@@ -1,0 +1,9 @@
+# Dữ liệu tải từ Drive và kết quả chạy: không đưa lên repo
+*.xlsx
+*.csv
+scan.json
+outputs/
+nhac-viec-*.md
+*.skill
+__pycache__/
+.DS_Store
