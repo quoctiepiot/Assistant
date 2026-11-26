@@ -51,7 +51,7 @@ Protocol đọc / ghi: skill `hub-sync`. ID (bản gốc ở `skills/hub-sync/re
 | Agent Hub · Tasks (data source) | `collection://42405074-f7ed-81f4-8501-000b4d5ef55b` |
 | Agent Hub · Events (data source) | `collection://42405074-f7ed-81a1-8ccb-000bb99c5274` |
 | Agent Hub · Agents (data source) | `collection://42405074-f7ed-8167-8c5e-000bcd2ea0cb` |
-| Drive · memory của repo Assistant | `1URUoawg3uNJsiOCN5e7bpyIMvEx5eRbD` (`AI-Agent-Data/repo Assistant-Data/memory/`) |
+| Drive · memory của repo Assistant | `1URUoawg3uNJsiOCN5e7bpyIMvEx5eRbD` (`AI AGENT DATA/repo_assistant data/memory/`) |
 
 Mục memory: mỗi mục một Google Doc, tên `YYYY-MM-DD | <fact/decision/lesson/preference> | project | <tiêu đề>`.
 Tìm: `search_files` với `'1URUoawg3uNJsiOCN5e7bpyIMvEx5eRbD' in ancestors and title contains '| lesson |'`,

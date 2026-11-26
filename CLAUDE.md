@@ -7,7 +7,7 @@ Repo chứa skill, instruction và hướng dẫn cho trợ lí quản lý công
 | Kho | Ở đâu |
 |---|---|
 | Kanban, WBS, kế hoạch (nguồn sự thật việc của tôi) | Google Drive, ID ở `skills/thu-ky-du-an/references/sources.md` |
-| **Memory** (bài học, quyết định, quy ước rút ra sau task) — riêng repo này | Google Drive `AI-Agent-Data/repo Assistant-Data/memory/` |
+| **Memory** (bài học, quyết định, quy ước rút ra sau task) — riêng repo này | Google Drive `AI AGENT DATA/repo_assistant data/memory/` |
 | **State / tiến độ** của mọi agent (3 repo) | Notion **Agent Hub** (Tasks, Events, Agents) |
 
 Protocol state + memory: skill `hub-sync` (`skills/hub-sync/SKILL.md`). Tóm tắt:

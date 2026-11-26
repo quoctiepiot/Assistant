@@ -11,7 +11,7 @@ Trợ lí AI cá nhân giúp quản lý công việc và kế hoạch, theo dõi
 | `skills/hub-sync/` | General skill dùng chung 3 repo: state trên Notion Agent Hub, memory trên Drive. Bản copy giống hệt ở NPD-Engineering, Read-thing |
 
 Repo chỉ chứa skill, instruction, hướng dẫn. **Memory** (bài học sau task) nằm trên Google Drive
-`AI-Agent-Data/repo Assistant-Data/memory/`; **state / tiến độ** dùng chung nằm trên Notion **Agent Hub**.
+`AI AGENT DATA/repo_assistant data/memory/`; **state / tiến độ** dùng chung nằm trên Notion **Agent Hub**.
 Chi tiết: `skills/hub-sync/`.
 
 ## Skill `thu-ky-du-an`
