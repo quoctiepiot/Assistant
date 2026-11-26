@@ -7,7 +7,12 @@ Trợ lí AI cá nhân giúp quản lý công việc và kế hoạch, theo dõi
 | Thư mục | Nội dung |
 |---|---|
 | `instruction/` | Instruction tổng cho AI trợ lí: bản gốc (v1), bản viết lại (v2, .md và .docx), bản đánh giá |
-| `skills/thu-ky-du-an/` | Skill thư ký dự án: đọc kanban/WBS trên Google Drive, nhắc việc theo ma trận Eisenhower, follow-up, lỗ hổng dữ liệu |
+| `skills/thu-ky-du-an/` | Skill thư ký dự án: đọc kanban/WBS trên Google Drive, nhắc việc theo ma trận Eisenhower, follow-up, lỗ hổng dữ liệu; đọc Agent Hub để báo tiến độ các agent |
+| `skills/hub-sync/` | General skill dùng chung 3 repo: state trên Notion Agent Hub, memory trên Drive. Bản copy giống hệt ở NPD-Engineering, Read-thing |
+
+Repo chỉ chứa skill, instruction, hướng dẫn. **Memory** (bài học sau task) nằm trên Google Drive
+`AI AGENT DATA/repo_assistant data/memory/`; **state / tiến độ** dùng chung nằm trên Notion **Agent Hub**.
+Chi tiết: `skills/hub-sync/`.
 
 ## Skill `thu-ky-du-an`
 
@@ -27,5 +32,5 @@ python3 -I skills/thu-ky-du-an/scripts/scan.py --today 2026-11-25 tti.xlsx daily
 
 ## Ghi chú
 
-- Skill chỉ đọc dữ liệu, không sửa file trên Drive.
-- Repo đang public và có tên dự án, mã part, ID file Drive. Không đưa dữ liệu tải từ Drive lên đây (`.gitignore` đã chặn).
+- Skill chỉ đọc dữ liệu, không sửa file trên Drive. Ngoại lệ: tạo mục memory mới và ghi Agent Hub theo `hub-sync`.
+- Repo đang public và có tên dự án, mã part, ID file Drive, ID Notion Agent Hub (ID không cấp quyền truy cập, nhưng lộ cấu trúc). Không đưa dữ liệu tải từ Drive lên đây (`.gitignore` đã chặn).

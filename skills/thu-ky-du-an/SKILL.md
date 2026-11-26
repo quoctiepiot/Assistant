@@ -19,6 +19,9 @@ Skill này hiện thực instruction tổng "Instruction cho AI trợ lí (v2)" 
 
 - **Chỉ đọc, chỉ đề xuất.** Không sửa file nào trên Drive. Thay đổi ghi vào mục "Đề xuất cập nhật"
   để người dùng tự sửa, vì tự cập nhật kanban chính là cách họ nắm tình hình. Các file trong `references/` cũng không tự sửa.
+  Hai ngoại lệ được ghi, không cần hỏi: (1) tạo mục **memory mới** trong thư mục memory của repo Assistant trên Drive;
+  (2) ghi **Agent Hub** trên Notion cho Task của chính skill này, và Event lên Task của agent khác (không đổi Status / Owner của họ).
+  Cách ghi: skill `hub-sync`; ID: `references/sources.md` mục "Agent Hub và memory".
 - **Không gửi thay.** Chỉ soạn nháp mail hoặc tin nhắn, vì đó là liên lạc nhân danh người dùng.
 - **Quyết định lớn thuộc về người dùng**: dời mốc, cắt phạm vi, dừng dự án, nhận thêm việc.
   Đưa 2–3 phương án, mỗi phương án kèm hệ quả, và một khuyến nghị.
@@ -65,6 +68,13 @@ chỉ trả khoảng 25 dòng mẫu mỗi sheet, nên dùng nó sẽ làm sót v
    - `recent_changes[]`: các thay đổi status, waiting, note trong `window` ngày.
    - `plans[]`, `project_list`, `activity_log_tail`, `sources[].last_snapshot`.
    - `summary`: các con số đếm. `doing_active` là số việc đang làm mà không chờ ai, tức việc thật sự đang nằm trên tay người dùng.
+
+5. **Agent Hub** (Notion, ID ở `references/sources.md`): query Tasks có `Status` khác `done` / `cancelled`.
+   Đây là việc các agent (repo NPD-Engineering, Assistant, Read-thing) đang làm hoặc chờ người dùng. Gắn cờ:
+   `review` (chờ người dùng quyết), `blocked`, lease hết hạn (`Lease until` < bây giờ), không đổi > 7 ngày.
+   Task hub là việc của agent, **không** thay kanban: việc hub nào cần người dùng làm mà chưa có trên kanban → đề xuất đưa lên.
+6. **Memory** của repo Assistant (Drive, ID ở `references/sources.md`): đọc các mục `lesson` / `preference` gần nhất
+   trước khi chọn bài học tuần và trước khi đề xuất chuyển giai đoạn.
 
 **Khi không tải được file:** đọc bằng `read_file_content` và nói rõ ở đầu báo cáo rằng dữ liệu có thể thiếu dòng.
 **Khi một file không mở được:** tìm lại bằng `search_files` theo tên, rồi báo người dùng ID mới để cập nhật `sources.md`.
@@ -122,6 +132,8 @@ Mục tiêu là người dùng dần tự làm được phần lớn việc mà 
 - **Mỗi tuần một bài học**, gắn với dữ liệu thật của tuần đó. Viết theo khung: thói quen lặp lại (có số liệu)
   → vì sao nó gây hại → một thay đổi nhỏ để thử tuần sau. Chủ đề gợi ý có trong `huan-luyen.md`. Không lặp lại
   bài của tuần trước nếu số liệu đã tốt lên; nếu chưa tốt lên, nói thẳng và đề xuất cách thử khác.
+- **Ghi bài học vào memory.** Sau review tuần, tạo một mục memory `lesson` (bài học đã đưa, số liệu, thử gì tuần sau)
+  theo `hub-sync`. Tuần sau đọc lại để không lặp bài cũ và kiểm thử nghiệm có hiệu quả không.
 - **Đề xuất chuyển hoặc lùi giai đoạn** khi chỉ số đạt hoặc không đạt điều kiện ghi trong `huan-luyen.md`.
   Người dùng tự quyết và tự sửa file.
 
@@ -153,6 +165,9 @@ Phần còn lại dài khoảng 40 dòng là vừa.
 
 ## ⚪ Để sau / cân nhắc đóng
 - ...
+
+## 🤖 Agent (Agent Hub)
+<chỉ khi có: Task `review` chờ bạn · `blocked` · lease hết hạn. Mỗi Task một dòng: HUB-id · việc · trạng thái · bước tiếp theo>
 
 ## 👀 Đang theo dõi
 <mỗi dự án một dòng: Dự án: việc (chờ ai) · việc (chờ ai)>
