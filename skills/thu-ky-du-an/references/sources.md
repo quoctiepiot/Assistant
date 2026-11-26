@@ -41,3 +41,18 @@ Tìm thêm (không bắt buộc, dùng khi review tuần hoặc khi người dù
 ### WBS_ project management
 - `WBS`: phần đầu có Project / Target / Milestone; bảng: id | name | owner | duration (day) | preds | Loại (Nhóm/Việc) | Đầu ra | Xong khi | Trạng thái (`Xong` / `Chưa làm`).
 - Phần dưới bảng (Thực hành tuần 1-12, Đo lường & cải tiến...) là kế hoạch phụ của dự án "Cải thiện chất lượng suy nghĩ", chưa có id/trạng thái.
+
+## Agent Hub và memory
+
+Protocol đọc / ghi: skill `hub-sync`. ID (bản gốc ở `skills/hub-sync/references/`, sửa thì sửa cả hai nơi):
+
+| Thành phần | ID |
+|---|---|
+| Agent Hub · Tasks (data source) | `collection://42405074-f7ed-81f4-8501-000b4d5ef55b` |
+| Agent Hub · Events (data source) | `collection://42405074-f7ed-81a1-8ccb-000bb99c5274` |
+| Agent Hub · Agents (data source) | `collection://42405074-f7ed-8167-8c5e-000bcd2ea0cb` |
+| Drive · memory của repo Assistant | `1URUoawg3uNJsiOCN5e7bpyIMvEx5eRbD` (`AI-Agent-Data/repo Assistant-Data/memory/`) |
+
+Mục memory: mỗi mục một Google Doc, tên `YYYY-MM-DD | <fact/decision/lesson/preference> | project | <tiêu đề>`.
+Tìm: `search_files` với `'1URUoawg3uNJsiOCN5e7bpyIMvEx5eRbD' in ancestors and title contains '| lesson |'`,
+`orderBy = modifiedTime desc`.
