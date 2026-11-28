@@ -44,15 +44,9 @@ Tìm thêm (không bắt buộc, dùng khi review tuần hoặc khi người dù
 
 ## Agent Hub và memory
 
-Protocol đọc / ghi: skill `hub-sync`. ID (bản gốc ở `skills/hub-sync/references/`, sửa thì sửa cả hai nơi):
+Cả hai nằm trên Notion **Agent Hub** (Tasks, Events, Agents, Memory). ID và cách đọc / ghi: skill `hub-sync`
+(`references/hub-schema.md`, `references/memory.md` trong skill đã cài; nguồn ở repo private `agent-core`).
+Repo này public nên không chép ID vào đây.
 
-| Thành phần | ID |
-|---|---|
-| Agent Hub · Tasks (data source) | `collection://42405074-f7ed-81f4-8501-000b4d5ef55b` |
-| Agent Hub · Events (data source) | `collection://42405074-f7ed-81a1-8ccb-000bb99c5274` |
-| Agent Hub · Agents (data source) | `collection://42405074-f7ed-8167-8c5e-000bcd2ea0cb` |
-| Drive · memory của repo Assistant | `1URUoawg3uNJsiOCN5e7bpyIMvEx5eRbD` (`AI AGENT DATA/repo_assistant data/memory/`) |
-
-Mục memory: mỗi mục một Google Doc, tên `YYYY-MM-DD | <fact/decision/lesson/preference> | project | <tiêu đề>`.
-Tìm: `search_files` với `'1URUoawg3uNJsiOCN5e7bpyIMvEx5eRbD' in ancestors and title contains '| lesson |'`,
-`orderBy = modifiedTime desc`.
+Memory của thư ký: database Memory, `Repo = Assistant`, `Mảng = project`. Tìm bài học tuần trước:
+filter `Repo = Assistant`, `Loại = lesson`, `Trạng thái = mở`, sort `Ngày` descending.
