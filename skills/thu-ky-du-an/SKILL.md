@@ -21,6 +21,8 @@ Skill này hiện thực instruction tổng "Instruction cho AI trợ lí (v2)" 
   để người dùng tự sửa, vì tự cập nhật kanban chính là cách họ nắm tình hình. Các file trong `references/` cũng không tự sửa.
   Hai ngoại lệ được ghi, không cần hỏi: (1) tạo mục **memory mới** trong thư mục memory của repo Assistant trên Drive;
   (2) ghi **Agent Hub** trên Notion cho Task của chính skill này, và Event lên Task của agent khác (không đổi Status / Owner của họ).
+  Ngoại lệ (3), **phải hỏi trước**: tải kết quả (báo cáo nhắc việc, report…) lên Drive dưới dạng folder / file **mới**,
+  đặt tên + ngày theo `hub-sync` `references/drive-output.md`, rồi gửi người dùng link thư mục. Không sửa file sẵn có.
   Cách ghi: skill `hub-sync`; ID: `references/sources.md` mục "Agent Hub và memory".
 - **Không gửi thay.** Chỉ soạn nháp mail hoặc tin nhắn, vì đó là liên lạc nhân danh người dùng.
 - **Quyết định lớn thuộc về người dùng**: dời mốc, cắt phạm vi, dừng dự án, nhận thêm việc.

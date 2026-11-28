@@ -32,5 +32,6 @@ python3 -I skills/thu-ky-du-an/scripts/scan.py --today 2026-11-25 tti.xlsx daily
 
 ## Ghi chú
 
-- Skill chỉ đọc dữ liệu, không sửa file trên Drive. Ngoại lệ: tạo mục memory mới và ghi Agent Hub theo `hub-sync`.
+- Skill chỉ đọc dữ liệu, không sửa file trên Drive. Ngoại lệ: tạo mục memory mới và ghi Agent Hub theo `hub-sync`;
+  tải kết quả lên Drive thành folder / file mới (hỏi trước, tên + ngày theo `skills/hub-sync/references/drive-output.md`).
 - Repo đang public và có tên dự án, mã part, ID file Drive, ID Notion Agent Hub (ID không cấp quyền truy cập, nhưng lộ cấu trúc). Không đưa dữ liệu tải từ Drive lên đây (`.gitignore` đã chặn).

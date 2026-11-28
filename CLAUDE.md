@@ -21,5 +21,8 @@ Protocol state + memory: skill `hub-sync` (`skills/hub-sync/SKILL.md`). Tóm t�
 - Trả lời tiếng Việt, ngắn, kết luận trước. Instruction tổng: `instruction/Instruction_for_AI_assistant_v2.md`.
 - File kết quả (báo cáo nhắc việc, scan.json, xlsx tải về) không lưu vào repo (`.gitignore` đã chặn).
 - Repo đang **public**: không đưa dữ liệu tải từ Drive, memory, nội dung hub lên repo.
+- Tải kết quả task lên Drive: **hỏi trước**, để trong thư mục dự án của task (cạnh phiên bản cũ), mỗi lần cập nhật một
+  folder `<Loại>_<mã>_<MM.DD.YYYY>[_vN]/`, file cùng tên + ngày; tải xong gửi link thư mục. Chỉ tạo file mới, không sửa
+  file sẵn có. Chi tiết: `skills/hub-sync/references/drive-output.md`.
 - `skills/hub-sync/` là bản copy giống hệt ở repo NPD-Engineering và Read-thing: sửa thì sửa cả 3.
 - **Luôn hỏi trước** khi commit hoặc push; liệt kê file thay đổi và commit message đề xuất.
