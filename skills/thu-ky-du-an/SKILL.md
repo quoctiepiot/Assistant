@@ -19,9 +19,9 @@ Skill này hiện thực instruction tổng "Instruction cho AI trợ lí (v2)" 
 
 - **Chỉ đọc, chỉ đề xuất.** Không sửa file nào trên Drive. Thay đổi ghi vào mục "Đề xuất cập nhật"
   để người dùng tự sửa, vì tự cập nhật kanban chính là cách họ nắm tình hình. Các file trong `references/` cũng không tự sửa.
-  Hai ngoại lệ được ghi, không cần hỏi: (1) tạo mục **memory mới** trong thư mục memory của repo Assistant trên Drive;
+  Hai ngoại lệ được ghi, không cần hỏi: (1) tạo mục **memory** (Notion Agent Hub → Memory, `Repo = Assistant`);
   (2) ghi **Agent Hub** trên Notion cho Task của chính skill này, và Event lên Task của agent khác (không đổi Status / Owner của họ).
-  Cách ghi: skill `hub-sync`; ID: `references/sources.md` mục "Agent Hub và memory".
+  Cách ghi và ID: skill `hub-sync` (đã cài).
 - **Không gửi thay.** Chỉ soạn nháp mail hoặc tin nhắn, vì đó là liên lạc nhân danh người dùng.
 - **Quyết định lớn thuộc về người dùng**: dời mốc, cắt phạm vi, dừng dự án, nhận thêm việc.
   Đưa 2–3 phương án, mỗi phương án kèm hệ quả, và một khuyến nghị.
@@ -69,11 +69,13 @@ chỉ trả khoảng 25 dòng mẫu mỗi sheet, nên dùng nó sẽ làm sót v
    - `plans[]`, `project_list`, `activity_log_tail`, `sources[].last_snapshot`.
    - `summary`: các con số đếm. `doing_active` là số việc đang làm mà không chờ ai, tức việc thật sự đang nằm trên tay người dùng.
 
-5. **Agent Hub** (Notion, ID ở `references/sources.md`): query Tasks có `Status` khác `done` / `cancelled`.
+5. **Agent Hub** (Notion, ID trong skill `hub-sync`): query Tasks có `Status` khác `done` / `cancelled`.
    Đây là việc các agent (repo NPD-Engineering, Assistant, Read-thing) đang làm hoặc chờ người dùng. Gắn cờ:
    `review` (chờ người dùng quyết), `blocked`, lease hết hạn (`Lease until` < bây giờ), không đổi > 7 ngày.
+   Xếp nhóm như chế độ B của skill `dieu-phoi` (⏳ chờ bạn duyệt, 🚀 sẵn sàng giao, ⚠️ lease hết hạn, 🔴 kẹt), để
+   chỉ có một báo cáo agent mỗi ngày.
    Task hub là việc của agent, **không** thay kanban: việc hub nào cần người dùng làm mà chưa có trên kanban → đề xuất đưa lên.
-6. **Memory** của repo Assistant (Drive, ID ở `references/sources.md`): đọc các mục `lesson` / `preference` gần nhất
+6. **Memory** của thư ký (Notion Memory, `Repo = Assistant`, xem `references/sources.md`): đọc các mục `lesson` / `preference` gần nhất
    trước khi chọn bài học tuần và trước khi đề xuất chuyển giai đoạn.
 
 **Khi không tải được file:** đọc bằng `read_file_content` và nói rõ ở đầu báo cáo rằng dữ liệu có thể thiếu dòng.
@@ -167,7 +169,8 @@ Phần còn lại dài khoảng 40 dòng là vừa.
 - ...
 
 ## 🤖 Agent (Agent Hub)
-<chỉ khi có: Task `review` chờ bạn · `blocked` · lease hết hạn. Mỗi Task một dòng: HUB-id · việc · trạng thái · bước tiếp theo>
+<chỉ khi có. ⏳ chờ bạn duyệt trước (kèm Output link; trả lời `HUB-n accept` / `sửa lại: …` / `reject: …`),
+rồi 🚀 sẵn sàng giao · ⚠️ lease hết hạn · 🔴 kẹt. Mỗi Task một dòng: HUB-id · việc · trạng thái · bước tiếp theo>
 
 ## 👀 Đang theo dõi
 <mỗi dự án một dòng: Dự án: việc (chờ ai) · việc (chờ ai)>
