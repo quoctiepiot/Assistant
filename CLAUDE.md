@@ -17,7 +17,8 @@ Tóm tắt:
 - Update tiến độ của agent khác (repo khác): chỉ ghi **Event**, không ghi đè Status / Owner / Lease.
 - Cuối task: cập nhật hub (`Duyệt = cần duyệt` → `review`, `không cần` → `done`); ghi memory nếu có điều đáng nhớ.
   Không ghi memory vào repo.
-- Ghi hub / memory không cần hỏi. Dữ liệu chỉ dùng mã, không tên thật supplier / đồng nghiệp, không giá.
+- Ghi hub / memory và tải file lên Drive **tự động, không cần hỏi** (quyết định 2026-11-28); vẫn hỏi trước khi
+  xoá / trash, share file cho người khác hoặc ghi đè file có sẵn. Dữ liệu chỉ dùng mã, không tên thật supplier / đồng nghiệp, không giá.
 
 ## Cách làm việc
 
